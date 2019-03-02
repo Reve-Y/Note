@@ -68,5 +68,36 @@
    ```
    实际可以看出数组名和指针的根本差别：不能修改数组名的值，但是指针是变量，因此可以修改。此外，通常double类型的数组相互间隔8个字节，而将p+1后，它将指向下一个元素的地址，这表明指针算数有一些特别之处。
 
-* 
-* 
+* 数组和指针的特殊关系可以扩展到C风格字符串。**如果给cout提供一个字符的地址，则它将从该字符开始打印，知道遇到空字符为止**。 在cout和多数C++表达式中，char数组名、char指针以及用引号括起的字符串常量都被解释为字符串第一个字符的地址。
+
+* const修饰的指针：不能修改其指向的地址存放的值。 下面是一段示例：
+   ```
+      const char * bird = "wren";   
+      const char * animal = &(*bird);     
+      cout<<"animal = "<<animal<<endl;
+      cout<<"animal p_address = "<<(int *)animal<<endl;
+      cout<<"bird = "<<bird<<endl;
+      cout<<"bird p_address = "<<(int *)bird<<endl;
+      bird = "magpie" ; // 喜鹊  
+      cout<<"now change "<<endl;
+      cout<<"now bird = "<<bird<<endl;
+      cout<<"now bird p_address = "<<(int *)bird<<endl;
+      cout<<"now animal = "<<animal<<endl;  
+      cout<<"now animal p_address = "<<(int *)animal<<endl;
+      //  这里实际上bird指向的地址的内容没有改变，只是bird指向了另一个字符串常量的地址。
+      //  依据就是animal之前指向的地址与bird一样，而animal指向内存的值并没改变。
+      //  用const修饰的指针，编译器将禁止改变其指向的位置的内容。
+    ```
+    一般来说，如果给cout提供一个指针，它将打印地址。但如果指针的类型为char \* ,则cout将显示指向的字符串，，如果想显示地址，就要将这种指针强制转换为另一种指针类型，比如int \*，上面的代码就是这么做的。
+    如果要获得一个字符串的副本，你可以像这样做：
+    ```
+       char animal[20] = "woman_tiger";           //  母老虎
+       char * ps = new char[strlen(animal) + 1];  // 获得内存
+       strcpy(ps,animal);
+    ```
+    如果需要将字符串放到数组中，在初始化数组时应该使用 = 运算符，或者strcpy()或者strncpy()。使用strcpy可能会有风险，要复制的字符串过长，函数会将字符串后面的内容复制到后面的内存中。。所以后者更为安全，因为多了一个参数：要复制的最大字符数。要注意的是，如果该函数在到达字符串结尾之前目标内存已经用完，则它不会添加空字符\\0 。应该像下面这样使用：
+    ```
+       strncpy(word,"aaaaa bbbbb ccccc ddddd eeeee ",19);
+       word[20] = '\0';
+    ```
+    
