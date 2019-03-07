@@ -110,3 +110,21 @@
    它可用于指向结构的指针，就像点运算符可用于结构名一样。简单来说，指针用->，而结构名使用句点.运算符。   
    还有另一种方法可以访问成员，即 `` (*ps).attr ``这种方式。由于C++的运算符优先级规则，这里必须使用括号。
    
+#### 模板类   
+* 模板类vector:是一种动态数组，声明对象的方式为：
+   ```
+      #include <vector>  //  头文件
+      using namespace std;
+      ...
+      vector<typeName> vt(n_elem) ; //  n_elem可以是整型常量或者变量，也可以不带它，声明一个长度为0的vt
+   ```
+   C++11中新增的模板类是array。vector类的效率稍低，如果需要长度固定的数组，可以使用模板类array。像下面这样声明它：
+   ```
+      #include <array>
+      using namespace std;
+      ...
+      arr<int , 5 >  nums ; 
+      array<typeName,n_elem>  arr; 
+   ```
+   **与vector不同的是，声明array 时的 n_elem 不能是变量。**
+   
