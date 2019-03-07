@@ -126,5 +126,5 @@
       arr<int , 5 >  nums ; 
       array<typeName,n_elem>  arr; 
    ```
-   **与vector不同的是，声明array 时的 n_elem 不能是变量。**
-   
+   **与vector不同的是，声明array 时的 n_elem 不能是变量。**   
+   **无论是数组、vector对象还是array对象，都可使用标准数组表示法来访问各个元素。**只是，array和数组存储在栈，vector存储在堆中。
