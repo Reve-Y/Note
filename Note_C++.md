@@ -17,7 +17,7 @@
 
 * 全局变量和和局部变量同名时，**可通过域名(::var)在函数中引用到全局变量，不加域名解析则引用局部变量**。C++ 全局变量、局部变量、静态全局变量、静态局部变量的区别:http://www.runoob.com/cplusplus/cpp-variable-scope.html
 
-* 面向行的输入：getline():不是像cin一样只读一个单词。它使用通过回车键输入的换行符来确定输入结尾。**cin.getline(array_name,maxNum):在读取到指定数目的字符（maxNum-1个）或者换行符时停止读取,并且丢弃换行符**。如果此时输入的字符超过了maxNum-1，则会影响到下一次读取。而cin.get()可以与getline的参数相同，但是不会丢弃换行符，**cin.get(Name,Size).get()**即可。
+* 面向行的输入：getline():不是像cin一样只读一个单词。它使用通过回车键输入的换行符来确定输入结尾。**cin.getline(array_name,maxNum):在读取到指定数目的字符（maxNum-1个）或者换行符时停止读取,并且丢弃换行符**。如果此时输入的字符超过了maxNum-1，则会影响到下一次读取。而cin.get()可以与getline的参数相同，但是不会丢弃换行符，``cin.get(Name,Size).get()``即可。
 
 * 共用体与结构体不同的是，共用体也可以存储不同的数据类型，**但只能同时存储其中的一种类型（共用内存）**
 
