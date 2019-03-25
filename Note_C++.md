@@ -148,4 +148,68 @@
 * 关于自增运算符和接触引用运算符：前缀递增、前缀递减和接触引用运算符的优先级相同，以从右到左的方式进行结合；后缀递增和后缀递减的优先级相同，但比前缀运算符的优先级要高，这两个运算符以从左到右的方式进行结合。
 
 #### 逗号运算符     
-* 逗号表达式使得原本只允许放一个表达式的地方，可以放两个表达式，使用逗号隔开即可。他还有另外两个特性：1.它确保先计算第一个表达式，在计算第二个表达式，2.C++规定，逗号表达式的值是第二部分的值。 在所有的运算符中，逗号运算符的优先级是最低的。
+* 逗号表达式使得原本只允许放一个表达式的地方，可以放两个表达式，使用逗号隔开即可。他还有另外两个特性：1.它确保先计算第一个表达式，在计算第二个表达式，2.C++规定，**逗号表达式的值是第二部分的值**。 在所有的运算符中，逗号运算符的优先级是**最低**的。
+
+#### 文本输入    
+* cin 、 cin.get(char) 的用法有所区别。例如，cin 将**忽略空格与换行符**，而使用cin.get(char)这个方法，可以读取空格。下面是一个示例：
+   ```
+       using namespace std;
+       char ch;
+       int count = 0;
+       cout<<"Input characters and ends with '#' : \n";
+       cin>>ch;
+       while (ch != '#')
+       {
+           count++;
+           cout<<ch;
+           cin>>ch;
+       }
+       cout<<"\n You have input "<<count<<" characters.\n";    // 并不记录空格数量
+       cin.clear();
+       cin.sync();  //  清空缓冲区
+       count = 0;
+       cout<<"You can still input some characters and ends with '#': \n";
+       cin.get(ch);
+       while (ch != '#')
+       {
+           cout<<ch;
+           count++;
+           cin.get(ch);
+       }
+       cout<<"\n You have input "<<count<<" characters.\n";    // 空格也计录下来
+   ```
+   上面的代码中，运行时会发现你可以在输入'#'后继续输入字符，这是因为发送给cin的字符被**缓冲**了，只有在输入回车时输入的内容才会发送给程序。   
+   实际情况中，用#模拟结束并不能总令人满意的。许多操作系统都支持通过键盘来模拟文件尾条件。**windows是Crtl+Z和Enter**。检测到EOF后，cin将两位(eofbit和failbit)都设置为 1，可以通过成员函数eof()来查看eofbit是否被设置；如果检测到EOF,则cin.eof()将返回true。下面是一个示例：
+   ```
+       using namespace std;
+       char ch;
+       int count = 0 ;
+       cout<<"Input some characters : \n";
+       cin.get(ch);
+       while (!cin.fail())
+       {
+           cout<<ch;
+           ++count;
+           cin.get(ch);        //  attemp to read a char
+       }
+       cout<<endl<<count<<" characters read\n";
+    ```
+    此外，cin.get(char)函数在到达EOF时，不会将一个特殊值赋给ch。
+    
+* 类似于C语言中的getchar()函数，cin也有类似的函数：
+    ```
+      ch = cin.get(); // 将字符编码作为int值返回。  cin.get(char)则是返回一个对象，而不是读取的字符。
+    ```
+   cin.get()处理EOF条件:当该函数达到EOF时，将没有可返回的字符。相反,cin.get()将返回一个符号常量**EOF**标识的特殊值。通常被定义为-1。 
+   ```
+       using namespace std;
+       int ch;
+       int count = 0;
+       cout<<"Input some characters : \n";
+       while( (ch = cin.get()) != EOF )    //  任何一个括号都不能少 否则因为优先级会影响结果
+       {
+           cout.put(char(ch)); // 强转一下
+           ++count;
+       }
+       cout<<endl<<count<<" characters read\n";
+    ```
