@@ -213,3 +213,11 @@
        }
        cout<<endl<<count<<" characters read\n";
     ```
+
+#### 条件运算符与错误防范   
+* 可以将更直观的表达式`` variable == value ``反转为`` value == variable ``这样写，可以捕获将相等运算符误写为赋值运算符的错误。例如：    
+   ```
+      // if ( flag == 3 ) 
+      if ( 3 == flag )
+   ```
+   
