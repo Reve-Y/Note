@@ -268,3 +268,29 @@
 
 * switch的每一个标签都必须是一个单独的整数值，因此它无法处理浮点测试，此外case标签值还必须是常量。如果选项涉及取值范围、浮点测试或两个变量的比较，则应使用if else语句。
 
+#### 读取数字的循环   
+* 如果n是int类型,那么``cin>>n``时用户输入了一个单词而不是数字会发生什么？将发生4种情况：   
+   1. n的值保持不变
+   2. 不匹配的输入将被保留在输入队列中
+   3. cin对象中的一个错误标记被设置
+   4. 对cin方法的调用将返回false（如果被转换为bool类型）
+   下面是一段示例：
+   ```
+       int golf[Max];
+       cout<<"Please enter your golf score:\n";
+       int i;
+       for( i = 0; i < Max; i++)
+       {
+           cout<<"round #"<<i+1<<" : ";
+           while ( !(cin>>golf[i]) )
+           {
+               cin.clear();  //  重置输入 , 没有这条语句程序将拒绝继续读取输入，
+               while (cin.get() != '\n')        //  读取行尾之前的所有输入，从而删除错误输入
+               {
+                   continue;           //  get rid of bad input 
+               }
+               cout<<"Please input a number : ";
+           }
+       }
+    ```
+    
