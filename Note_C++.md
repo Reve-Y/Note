@@ -313,3 +313,21 @@
   示例： `` void show_array ( const int arr[ ] , int length ) ; ``   
   该声明表示，指针 arr 指向的是常量数据，这意味着不能使用 arr 来修改数据，在这个函数中，数组arr的数组具有只读属性。   
   注意，这并不意味着原始数组必须是常量。只是这里的 arr 是一个指向常量的指针，无法通过它修改指向的值，实际上它指向的值不一定就是常量。
+
+#### 使用new操作符分配内存的异常处理   
+  使用`new`操作符分配内存失败时，一般不会返回`NULL`，而是会抛出异常`bad_alloc`。可以这样处理：
+  ```
+     try{
+         // to-do
+     }
+     catch(const bad_alloc& e)
+     {
+         cerr << e.what() << endl;
+         return -1;
+     }
+  ```
+  此外，标准C++还提供了一个方法来抑制`new`抛出异常，而返回空指针:
+  ```
+     int* p = new (std::nothrow) int;
+  ```
+  
